@@ -7,15 +7,17 @@ import "./App.css";
 
 function App() {
   return (
-    <div data-test="component-app" className="App">
+    <div data-test="component-app" className="App container">
       <h1>Jotto</h1>
-      <Congrats success={true} />
+      <Congrats success={false} />
       <GuessedWords
-        guessedWords={[
-          { guessedWord: "train", letterMatchCount: 3 },
-          { guessedWord: "agile", letterMatchCount: 1 },
-          { guessedWord: "party", letterMatchCount: 5 }
-        ]}
+        guessedWords={
+          [
+            // { guessedWord: "train", letterMatchCount: 3 },
+            // { guessedWord: "agile", letterMatchCount: 1 },
+            // { guessedWord: "party", letterMatchCount: 5 }
+          ]
+        }
       />
     </div>
   );
