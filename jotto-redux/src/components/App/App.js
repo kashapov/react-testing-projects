@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Input from "./Input";
-import GuessedWords from "./GuessedWords";
-import Congrats from "./Congrats";
-import { getSecretWord } from "./actions";
+import Input from "../Input/Input";
+import GuessedWords from "../GuessedWords/GuessedWords";
+import Congrats from "../Congrats/Congrats";
+import TotalGuesses from "../TotalGuesses/TotalGuesses";
+
+import { getSecretWord } from "../../actions";
 
 import "./App.css";
 
@@ -19,9 +21,13 @@ export class UnconnectedApp extends Component {
     return (
       <div data-test="component-app" className="App container">
         <h1>Jotto</h1>
+        <div>
+          <small>The secret word is {this.props.secretWord}</small>
+        </div>
         <Congrats success={success} />
         <Input />
         <GuessedWords guessedWords={guessedWords} />
+        <TotalGuesses guessCount={guessedWords.length} />
       </div>
     );
   }

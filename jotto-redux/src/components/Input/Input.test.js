@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 
 import Input, { UnconnectedInput } from "./Input";
-import { findByTestAttr, storeFactory } from "../test/testUtils";
+import { findByTestAttr, storeFactory } from "../../../test/testUtils";
 
 /**
  * Factory function to create a ShallowWrapper for the Input component.
@@ -104,7 +104,10 @@ describe("`guessWord` action creator call", () => {
 
   test("calls `guessWord` with input value as argument", () => {
     const guessWordArg = guessWordMock.mock.calls[0][0];
-    // console.log(guessWordMock.mock.calls);
     expect(guessWordArg).toBe(guessedWord);
+  });
+
+  test("input box clears on submit", () => {
+    expect(wrapper.instance().inputBox.current.value).toBe("");
   });
 });

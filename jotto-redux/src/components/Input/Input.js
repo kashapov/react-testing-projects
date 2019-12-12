@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { guessWord } from "./actions";
+import { guessWord } from "../../actions";
 
 export class UnconnectedInput extends Component {
   inputBox = React.createRef();
@@ -14,6 +14,8 @@ export class UnconnectedInput extends Component {
     if (guessedWord && guessedWord.length > 0) {
       guessWord(guessedWord);
     }
+
+    this.inputBox.current.value = "";
   };
 
   render() {
