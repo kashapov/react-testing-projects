@@ -5,8 +5,9 @@ import Input from "../Input/Input";
 import GuessedWords from "../GuessedWords/GuessedWords";
 import Congrats from "../Congrats/Congrats";
 import TotalGuesses from "../TotalGuesses/TotalGuesses";
+import NewWordButton from "../NewWordButton/NewWordButton";
 
-import { getSecretWord } from "../../actions";
+import { getSecretWord, resetGame } from "../../actions";
 
 import "./App.css";
 
@@ -16,7 +17,7 @@ export class UnconnectedApp extends Component {
   }
 
   render() {
-    const { success, guessedWords } = this.props;
+    const { success, guessedWords, resetGame } = this.props;
 
     return (
       <div data-test="component-app" className="App container">
@@ -25,6 +26,7 @@ export class UnconnectedApp extends Component {
           <small>The secret word is {this.props.secretWord}</small>
         </div>
         <Congrats success={success} />
+        <NewWordButton display={success} resetAction={resetGame} />
         <Input />
         <GuessedWords guessedWords={guessedWords} />
         <TotalGuesses guessCount={guessedWords.length} />
@@ -38,4 +40,6 @@ const mapStateToProps = state => {
   return { success, guessedWords, secretWord };
 };
 
-export default connect(mapStateToProps, { getSecretWord })(UnconnectedApp);
+export default connect(mapStateToProps, { getSecretWord, resetGame })(
+  UnconnectedApp
+);
