@@ -37,6 +37,10 @@ describe("render", () => {
       const submitButton = findByTestAttr(wrapper, "submit-button");
       expect(submitButton.length).toBe(1);
     });
+    test('renders "give up" button', () => {
+      const submitButton = findByTestAttr(wrapper, "give-up-button");
+      expect(submitButton.length).toBe(1);
+    });
   });
 
   describe("word has been guessed", () => {
@@ -110,4 +114,19 @@ describe("`guessWord` action creator call", () => {
   test("input box clears on submit", () => {
     expect(wrapper.instance().inputBox.current.value).toBe("");
   });
+});
+
+test('calls `giveUp` prop upon "Give Up" button click', () => {
+  // create a mock function so we can see whether it's called on click
+  const giveUpMock = jest.fn();
+
+  // set up Input, with giveUpMock as a prop
+  const wrapper = shallow(<UnconnectedInput giveUp={giveUpMock} />);
+
+  // simulate click on giveUp button
+  const giveUpButton = findByTestAttr(wrapper, "give-up-button");
+  giveUpButton.simulate("click", { preventDefault() {} });
+
+  // expect the mock to have been called once
+  expect(giveUpMock.mock.calls.length).toBe(1);
 });
