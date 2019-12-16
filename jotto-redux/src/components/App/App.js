@@ -9,6 +9,7 @@ import NewWordButton from "../NewWordButton/NewWordButton";
 import SecretWordReveal from "../SecretWordReveal/SecretWordReveal";
 import EnterWordButton from "../EnterWordButton/EnterWordButton";
 import EnterWordForm from "../EnterWordForm/EnterWordForm";
+import ServerError from "../ServerError/ServerError";
 
 import {
   getSecretWord,
@@ -33,12 +34,15 @@ export class UnconnectedApp extends Component {
       secretWord,
       userEnter,
       setUserSecretWord,
-      setUserEntering
+      setUserEntering,
+      serverError
     } = this.props;
 
     let contents;
 
-    if (userEnter === "inProgress") {
+    if (serverError) {
+      contents = <ServerError />;
+    } else if (userEnter === "inProgress") {
       contents = <EnterWordForm formAction={setUserSecretWord} />;
     } else {
       contents = (
@@ -60,9 +64,11 @@ export class UnconnectedApp extends Component {
     return (
       <div data-test="component-app" className="App container">
         <h1>Jotto</h1>
-        <div>
-          <small>The secret word is {secretWord}</small>
-        </div>
+        {secretWord && (
+          <div>
+            <small>The secret word is {secretWord}</small>
+          </div>
+        )}
         {contents}
       </div>
     );
@@ -70,13 +76,23 @@ export class UnconnectedApp extends Component {
 }
 
 const mapStateToProps = state => {
-  const { success, guessedWords, secretWord, gaveUp, userEnter } = state;
-  return { success, guessedWords, secretWord, gaveUp, userEnter };
+  const {
+    success,
+    guessedWords,
+    secretWord,
+    gaveUp,
+    userEnter,
+    serverError
+  } = state;
+  return { success, guessedWords, secretWord, gaveUp, userEnter, serverError };
 };
 
-export default connect(mapStateToProps, {
-  getSecretWord,
-  resetGame,
-  setUserSecretWord,
-  setUserEntering
-})(UnconnectedApp);
+export default connect(
+  mapStateToProps,
+  {
+    getSecretWord,
+    resetGame,
+    setUserSecretWord,
+    setUserEntering
+  }
+)(UnconnectedApp);
