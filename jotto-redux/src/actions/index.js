@@ -63,19 +63,19 @@ export const getSecretWord = () => {
  * @param {dispatch} dispatch - Redux Thunk dispatch.
  *
  */
-const getSecretWordDispatch = dispatch => {
-  return axios
-    .get("http://localhost:3030")
-    .then(response => {
-      dispatch({
-        type: actionTypes.SET_SECRET_WORD,
-        payload: response.data
-      });
-    })
-    .catch(error => {
-      dispatch({ type: actionTypes.SERVER_ERROR });
-    });
-};
+// const getSecretWordDispatch = dispatch => {
+//   return axios
+//     .get("http://localhost:3030")
+//     .then(response => {
+//       dispatch({
+//         type: actionTypes.SET_SECRET_WORD,
+//         payload: response.data
+//       });
+//     })
+//     .catch(error => {
+//       dispatch({ type: actionTypes.SERVER_ERROR });
+//     });
+// };
 
 /**
  * Dispatch axios action to get secret word from Wordnik.
